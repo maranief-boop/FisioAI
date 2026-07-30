@@ -41,9 +41,16 @@ export function useChat() {
       const reply = await sendMessage(text, historyForApi)
       append('assistant', reply)
     } catch (err) {
-      let msg = err.message || 'Erro ao conectar com a IA. Verifique sua chave de API.'
-      if (msg.includes('429') || msg.includes('quota')) {
-        msg = '**Limite da API atingido.** A cota gratuita do Gemini foi excedida.\n\n**Isso acontece porque:**\n- A cota é por **projeto** do Google Cloud, não por chave\n- Criar uma nova chave no mesmo projeto **não resolve**\n\n**Solução definitiva (2 min):**\n1. Acesse [Google AI Studio](https://aistudio.google.com/app/apikey)\n2. Clique em **"Create API Key"** → **"Create API key in new project"**\n3. Use essa nova chave no app\n\n**Ou ative o plano pago (sem custo inicial):**\n- Vá no [Google Cloud Console](https://console.cloud.google.com/apis/enableflow?apiid=generativelanguage.googleapis.com)\n- Ative o faturamento (Pay-as-you-go)\n- Você continua dentro do limite gratuito, mas sem as restrições de cota'
+      const raw = err.message || ''
+      let msg
+      if (raw.includes('API_KEY_INVALID')) {
+        msg = '**Chave de API inválida.** A chave que você inseriu não é válida.\n\nAcesse [Google AI Studio](https://aistudio.google.com/app/apikey), crie uma nova chave em **"Create API key in new project"** e cole-a no app.'
+      } else if (raw.includes('limit: 0') || raw.includes('not enabled')) {
+        msg = '**API Gemini não habilitada para este projeto.**\n\nSua chave foi criada, mas a API Generative Language não está ativa.\n\n**Solução:**\n1. Acesse [Google Cloud Console](https://console.cloud.google.com/apis/library/generativelanguage.googleapis.com)\n2. Clique em **"Enable"** (Ativar)\n3. Aguarde 1 minuto e tente novamente\n\n**Ou crie uma nova chave em novo projeto:**\n1. Vá em [Google AI Studio](https://aistudio.google.com/app/apikey)\n2. Clique em **"Create API Key" → "Create API key in new project"**\n3. Use essa nova chave'
+      } else if (raw.includes('429') || raw.includes('quota') || raw.includes('RESOURCE_EXHAUSTED')) {
+        msg = '**Limite de requisições atingido.** O plano gratuito do Gemini tem restrições de uso.\n\n**Solução definitiva (recomendada):**\n1. Acesse [Google Cloud Console](https://console.cloud.google.com/apis/enableflow?apiid=generativelanguage.googleapis.com)\n2. Ative o faturamento **(Pay-as-you-go)** — você continua dentro do plano gratuito, mas sem as restrições de cota\n3. Funciona imediatamente, sem custos se ficar dentro do limite gratuito'
+      } else {
+        msg = `**Erro na API Gemini.** ${raw.slice(0, 300)}`
       }
       setError(msg)
       append('assistant', `⚠️ **Erro:** ${msg}`)
