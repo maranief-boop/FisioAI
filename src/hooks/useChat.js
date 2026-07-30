@@ -43,7 +43,7 @@ export function useChat() {
     } catch (err) {
       let msg = err.message || 'Erro ao conectar com a IA. Verifique sua chave de API.'
       if (msg.includes('429') || msg.includes('quota')) {
-        msg = '**Limite da API atingido.** A cota gratuita do Gemini foi excedida.\n\n**O que fazer:**\n1. Aguarde alguns minutos e tente novamente\n2. Acesse [Google AI Studio](https://aistudio.google.com/app/apikey) e crie **uma nova chave**\n3. Se precisar de mais uso, ative o plano pago ("Pay-as-you-go") no [Google Cloud Console](https://console.cloud.google.com/apis/enableflow?apiid=generativelanguage.googleapis.com)'
+        msg = '**Limite da API atingido.** A cota gratuita do Gemini foi excedida.\n\n**Isso acontece porque:**\n- A cota é por **projeto** do Google Cloud, não por chave\n- Criar uma nova chave no mesmo projeto **não resolve**\n\n**Solução definitiva (2 min):**\n1. Acesse [Google AI Studio](https://aistudio.google.com/app/apikey)\n2. Clique em **"Create API Key"** → **"Create API key in new project"**\n3. Use essa nova chave no app\n\n**Ou ative o plano pago (sem custo inicial):**\n- Vá no [Google Cloud Console](https://console.cloud.google.com/apis/enableflow?apiid=generativelanguage.googleapis.com)\n- Ative o faturamento (Pay-as-you-go)\n- Você continua dentro do limite gratuito, mas sem as restrições de cota'
       }
       setError(msg)
       append('assistant', `⚠️ **Erro:** ${msg}`)
