@@ -1,4 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
-  <rect width="192" height="192" rx="32" fill="#4f46e5"/>
-  <text x="96" y="118" font-family="system-ui, sans-serif" font-size="72" font-weight="bold" fill="white" text-anchor="middle">FA</text>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="50%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="neural" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="44" fill="url(#bg)"/>
+  <!-- Pulse waveform -->
+  <path d="M24 120 H54 L64 58 L74 148 L82 120 H98" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Neural transition -->
+  <path d="M98 120 Q108 112 116 106" stroke="url(#neural)" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="124" cy="100" r="5" fill="#22d3ee"/>
+  <circle cx="124" cy="100" r="9" fill="#22d3ee" opacity="0.2"/>
+  <path d="M129 100 Q140 106 152 104" stroke="#22d3ee" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+  <circle cx="160" cy="102" r="4" fill="#22d3ee"/>
+  <circle cx="160" cy="102" r="7" fill="#22d3ee" opacity="0.15"/>
+  <line x1="164" y1="102" x2="174" y2="92" stroke="#22d3ee" stroke-width="3.5" stroke-linecap="round" opacity="0.5"/>
+  <circle cx="179" cy="90" r="3" fill="#22d3ee"/>
+  <circle cx="148" cy="42" r="3" fill="#22d3ee" opacity="0.6"/>
+  <circle cx="148" cy="42" r="6" fill="#22d3ee" opacity="0.15"/>
 </svg>

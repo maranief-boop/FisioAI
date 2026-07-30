@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import Logo from './Logo'
 import ChatMessage from './ChatMessage'
 import ChatInput from './ChatInput'
 import EmptyState from './EmptyState'
@@ -13,13 +14,7 @@ export default function ChatContainer({ messages, isLoading, onSend, onClear, on
   return (
     <div className="flex flex-col h-dvh bg-surface-900">
       <header className="shrink-0 border-b border-surface-700 bg-surface-900/80 backdrop-blur-md px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center text-sm font-bold">FA</div>
-          <div>
-            <h1 className="text-sm font-semibold text-white">FisioAI</h1>
-            <p className="text-[11px] text-surface-200">Assistente de Fisiologia</p>
-          </div>
-        </div>
+        <Logo />
         <div className="flex items-center gap-2">
           {messages.length > 0 && (
             <button onClick={onClear} title="Nova conversa" className="p-2 rounded-lg text-surface-300 hover:text-white hover:bg-surface-700 transition-colors">
