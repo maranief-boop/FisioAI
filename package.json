@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Assistente de Q&A de Fisiologia Humana para estudantes e profissionais da saúde",
+  "engines": { "node": ">=18.0.0" },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
