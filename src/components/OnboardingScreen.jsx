@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Logo from './Logo'
 import { STORAGE_KEYS } from '../constants'
 
 const STEPS = [
@@ -45,10 +46,6 @@ export default function OnboardingScreen({ onApiKeySet }) {
   const handleStart = async () => {
     const trimmed = key.trim()
     if (!trimmed) { setError('Informe sua chave da API Gemini.'); return }
-    if (!trimmed.startsWith('AIza')) {
-      setError('A chave parece inválida. Deve começar com "AIza...".')
-      return
-    }
     setError('')
     setLoading(true)
     localStorage.setItem(STORAGE_KEYS.API_KEY, trimmed)
@@ -61,12 +58,9 @@ export default function OnboardingScreen({ onApiKeySet }) {
         <div className="max-w-md mx-auto space-y-8 animate-fade-in">
 
           {/* Hero */}
-          <div className="text-center pt-4">
-            <div className="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-lg shadow-primary-600/30 mb-5">
-              <span className="text-3xl font-bold text-white">FA</span>
-            </div>
-            <h1 className="text-2xl font-bold text-white">FisioAI</h1>
-            <p className="text-sm text-surface-300 mt-1.5 max-w-xs mx-auto leading-relaxed">
+          <div className="flex flex-col items-center pt-4">
+            <Logo size={80} showSubtitle={false} className="flex-col items-center gap-4" />
+            <p className="text-sm text-surface-300 mt-4 max-w-xs mx-auto leading-relaxed text-center">
               Assistente de Q&A de Fisiologia Humana para estudantes e profissionais da saúde
             </p>
           </div>
