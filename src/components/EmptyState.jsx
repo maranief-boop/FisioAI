@@ -1,4 +1,4 @@
-export default function EmptyState() {
+export default function EmptyState({ onSend }) {
   const suggestions = [
     "Explique o potencial de ação cardíaco passo a passo",
     "Como ocorre a filtração glomerular?",
@@ -24,10 +24,7 @@ export default function EmptyState() {
         {suggestions.map((q, i) => (
           <button
             key={i}
-            onClick={() => {
-              const input = document.querySelector('textarea')
-              if (input) { input.value = q; input.focus() }
-            }}
+            onClick={() => onSend(q)}
             className="w-full text-left text-sm text-surface-300 bg-surface-800 hover:bg-surface-700 hover:text-white rounded-xl px-4 py-3 transition-colors border border-surface-700"
           >
             {q}
