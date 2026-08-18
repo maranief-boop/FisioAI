@@ -1,16 +1,16 @@
 import { useState, useRef, useEffect } from 'react'
 
-export default function ChatInput({ onSend, isLoading }) {
+export default function ChatInput({ onSend, isLoading, disabled, placeholder }) {
   const [text, setText] = useState('')
   const inputRef = useRef(null)
 
   useEffect(() => {
-    if (!isLoading) inputRef.current?.focus()
-  }, [isLoading])
+    if (!isLoading && !disabled) inputRef.current?.focus()
+  }, [isLoading, disabled])
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!text.trim() || isLoading) return
+    if (!text.trim() || isLoading || disabled) return
     onSend(text.trim())
     setText('')
   }
@@ -30,14 +30,14 @@ export default function ChatInput({ onSend, isLoading }) {
           value={text}
           onChange={e => setText(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Pergunte sobre Fisiologia Humana..."
+          placeholder={placeholder || 'Pergunte sobre Fisiologia Humana...'}
           rows={1}
-          disabled={isLoading}
+          disabled={isLoading || disabled}
           className="flex-1 resize-none rounded-xl bg-surface-800 px-4 py-3 text-sm text-white placeholder-surface-700 border border-surface-700 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-colors disabled:opacity-50"
         />
         <button
           type="submit"
-          disabled={!text.trim() || isLoading}
+          disabled={!text.trim() || isLoading || disabled}
           className="shrink-0 rounded-xl bg-primary-600 p-3 text-white hover:bg-primary-500 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
           {isLoading ? (

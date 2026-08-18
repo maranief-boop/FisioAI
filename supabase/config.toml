@@ -1,0 +1,29 @@
+# FisioAI - Configuração do Supabase
+#
+# Ajuste o project_id para o seu projeto (Dashboard -> Project Settings -> General -> Reference ID).
+# Para gerar um arquivo completo, rode: supabase init
+# As Edge Functions abaixo têm verificação de JWT desabilitada porque
+# são chamadas externamente (webhook da Kiwify) e pelo PWA com chave anon.
+
+project_id = "fisioai"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[functions]
+enabled = true
+
+[functions.kiwify-webhook]
+verify_jwt = false
+
+[functions.validate-access]
+verify_jwt = false

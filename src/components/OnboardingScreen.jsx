@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Logo from './Logo'
-import { STORAGE_KEYS } from '../constants'
+import { STORAGE_KEYS, TUTORIAL_VIDEO_ID, FREE_SEARCH_LIMIT, SUBSCRIPTION_PRICE, SUBSCRIPTION_PERIOD } from '../constants'
 
 const STEPS = [
   {
@@ -85,6 +85,43 @@ export default function OnboardingScreen({ onApiKeySet }) {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Video tutorial */}
+          {TUTORIAL_VIDEO_ID && (
+            <div className="bg-surface-800 rounded-2xl border border-surface-700 p-4 space-y-3 animate-slide-up">
+              <p className="text-xs text-surface-400 uppercase tracking-wider font-semibold text-center">
+                Vídeo tutorial (30-60s)
+              </p>
+              <div className="aspect-video rounded-xl overflow-hidden bg-black">
+                <iframe
+                  src={`https://www.youtube.com/embed/${TUTORIAL_VIDEO_ID}`}
+                  title="Tutorial: como gerar sua chave de API no Google AI Studio"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              </div>
+              <p className="text-xs text-surface-400 text-center">
+                Aprenda passo a passo a gerar e copiar sua chave no Google AI Studio.
+              </p>
+            </div>
+          )}
+
+          {/* Free trial notice */}
+          <div className="bg-surface-800 rounded-2xl border border-primary-700/40 p-4 flex gap-3 items-start animate-slide-up">
+            <div className="shrink-0 w-8 h-8 rounded-full bg-primary-600/20 text-primary-400 flex items-center justify-center">
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+            </div>
+            <div className="space-y-1">
+              <h3 className="text-sm font-semibold text-white">Teste grátis: {FREE_SEARCH_LIMIT} pesquisas</h3>
+              <p className="text-xs text-surface-300 leading-relaxed">
+                Após o teste, assine por {SUBSCRIPTION_PRICE}/{SUBSCRIPTION_PERIOD} e continue com acesso ilimitado. Sua chave fica salva no seu aparelho.
+              </p>
+            </div>
           </div>
 
           {/* Input + CTA */}
