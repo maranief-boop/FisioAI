@@ -42,24 +42,34 @@ export async function validateEmail(email) {
   if (!isBackendConfigured()) {
     throw new Error('A validação de assinatura ainda não foi configurada. Entre em contato com o suporte.')
   }
-  const url = `${SUPABASE_URL.replace(/\/+$/, '')}/functions/v1/validate-access`
+
+  const normalized = email.trim().toLowerCase()
+  const base = SUPABASE_URL.replace(/\/+$/, '')
+  const url = `${base}/rest/v1/subscriptions?email=eq.${encodeURIComponent(normalized)}&status=eq.active&select=email,expires_at,status`
+
   const res = await fetch(url, {
-    method: 'POST',
+    method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
       apikey: SUPABASE_ANON_KEY,
       Authorization: `Bearer ${SUPABASE_ANON_KEY}`
-    },
-    body: JSON.stringify({ email })
+    }
   })
+
   if (!res.ok) {
-    const body = await res.json().catch(() => ({}))
-    throw new Error(body.error || 'Falha ao validar o acesso. Tente novamente.')
+    throw new Error('Falha ao consultar o servidor. Tente novamente.')
   }
-  const data = await res.json()
+
+  const rows = await res.json()
+  const row = Array.isArray(rows) ? rows[0] : rows
+
+  if (!row || row.status !== 'active' || !row.expires_at) {
+    return { active: false, expiresAt: null, email: normalized }
+  }
+
+  const active = new Date(row.expires_at).getTime() > Date.now()
   return {
-    active: !!data.active,
-    expiresAt: data.expiresAt || null,
-    email: data.email || email
+    active,
+    expiresAt: active ? row.expires_at : null,
+    email: normalized
   }
 }
