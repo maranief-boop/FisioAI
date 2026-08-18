@@ -96,7 +96,7 @@ export function useAccess() {
     } else {
       send(text)
     }
-  }, [status, searchesUsed, setSearchesUsed, send])
+  }, [status, searchesUsed, setSearchesUsed])
 
   return {
     apiKey,
