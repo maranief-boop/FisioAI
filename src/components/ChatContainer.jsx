@@ -64,10 +64,10 @@ export default function ChatContainer({
       </header>
 
       <main className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
-        {messages.length === 0 ? (
+        {!messages || messages.length === 0 ? (
           <EmptyState onSend={onSend} />
         ) : (
-          messages.map(msg => (
+          (messages || []).map(msg => (
             <ChatMessage key={msg.id} message={msg} />
           ))
         )}

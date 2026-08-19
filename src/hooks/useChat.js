@@ -33,7 +33,7 @@ export function useChat() {
     append('user', text)
     setIsLoading(true)
 
-    const historyForApi = messages
+    const historyForApi = (messages || [])
       .slice(-MAX_HISTORY_LENGTH)
       .map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', text: m.text }))
 

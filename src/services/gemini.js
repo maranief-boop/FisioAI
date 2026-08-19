@@ -22,7 +22,7 @@ export function getModel() {
 export async function sendMessage(message, history = []) {
   const m = getModel()
   const chat = m.startChat({
-    history: history.map(msg => ({
+    history: (history || []).map(msg => ({
       role: msg.role,
       parts: [{ text: msg.text }]
     })),
