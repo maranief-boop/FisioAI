@@ -5,7 +5,7 @@ export const STORAGE_KEYS = {
   SEARCHES_USED: '@fisioai/searches_used',
   SUBSCRIPTION: '@fisioai/subscription'
 }
-export const GEMINI_MODEL = 'gemini-3.5-flash-lite'
+export const GEMINI_MODEL = import.meta.env.VITE_GEMINI_MODEL || 'gemini-3.5-flash-lite'
 export const MAX_HISTORY_LENGTH = 20
 
 export const FREE_SEARCH_LIMIT = 2
