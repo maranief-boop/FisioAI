@@ -20,6 +20,7 @@ export default function AccessLockModal({
   if (!isOpen) return null
 
   const handleSubmit = (e) => {
+    console.log('Botão clicado', { email, validating })
     e.preventDefault()
     if (!email.trim() || validating) return
     onValidate(email.trim())
