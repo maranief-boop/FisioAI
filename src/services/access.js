@@ -51,6 +51,8 @@ export async function validateEmail(email) {
   const base = SUPABASE_URL.replace(/\/+$/, '')
   const url = `${base}/rest/v1/subscriptions?email=eq.${encodeURIComponent(normalized)}&status=eq.active&select=email,expires_at,status`
 
+  // console.log('[validateEmail] URL:', url, 'E-mail:', normalized)
+
   let res
   try {
     res = await fetch(url, {
@@ -60,11 +62,16 @@ export async function validateEmail(email) {
         Authorization: `Bearer ${SUPABASE_ANON_KEY}`
       }
     })
-  } catch {
+    // console.log('[validateEmail] Response status:', res.status, 'OK:', res.ok)
+  } catch (fetchErr) {
+    // console.log('[validateEmail] Fetch error:', fetchErr.message)
     throw new Error('Falha de conexão. Verifique sua internet e tente novamente.')
   }
 
   if (!res.ok) {
+    // console.log('[validateEmail] Response not ok, status:', res.status)
+    const errorText = await res.text()
+    // console.log('[validateEmail] Error body:', errorText)
     throw new Error('Falha ao consultar o servidor. Tente novamente.')
   }
 
@@ -73,14 +80,18 @@ export async function validateEmail(email) {
   let rows = []
   try {
     const data = await res.json()
+    // console.log('[validateEmail] API response data:', data, 'type:', typeof data, 'isArray:', Array.isArray(data))
     if (Array.isArray(data)) {
       rows = data
     }
-  } catch {
+  } catch (jsonErr) {
+    // console.log('[validateError] JSON parse error:', jsonErr.message)
     rows = []
   }
 
   const row = Array.isArray(rows) ? rows[0] : null
+
+  // console.log('[validateEmail] rows count:', rows.length, 'first row:', row)
 
   if (!row || row.status !== 'active' || !row.expires_at) {
     return { active: false, expiresAt: null, email: normalized }
