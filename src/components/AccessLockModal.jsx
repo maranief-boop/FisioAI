@@ -23,7 +23,16 @@ export default function AccessLockModal({
     console.log('Botão clicado', { email, validating })
     e.preventDefault()
     if (!email.trim() || validating) return
-    onValidate(email.trim())
+    try {
+      const result = onValidate(email.trim())
+      if (result && typeof result.catch === 'function') {
+        result.catch(err => {
+          console.error('[Validar acesso] Erro na promessa de validação:', err)
+        })
+      }
+    } catch (err) {
+      console.error('[Validar acesso] Erro ao disparar validação:', err)
+    }
   }
 
   return (

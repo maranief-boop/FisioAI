@@ -39,6 +39,13 @@ export function isBackendConfigured() {
 }
 
 export async function validateEmail(email) {
+  console.log('[validateEmail] Config disponível?', {
+    hasUrl: !!SUPABASE_URL,
+    urlPrefix: SUPABASE_URL ? SUPABASE_URL.slice(0, 20) : null,
+    hasKey: !!SUPABASE_ANON_KEY,
+    keyLength: SUPABASE_ANON_KEY ? SUPABASE_ANON_KEY.length : 0
+  })
+
   if (!isBackendConfigured()) {
     throw new Error('A validação de assinatura ainda não foi configurada. Entre em contato com o suporte.')
   }
@@ -70,7 +77,12 @@ export async function validateEmail(email) {
 
   if (!res.ok) {
     console.log('[validateEmail] Response not ok, status:', res.status)
-    const errorText = await res.text()
+    let errorText = ''
+    try {
+      errorText = await res.text()
+    } catch (textErr) {
+      console.log('[validateEmail] Erro ao ler corpo da resposta:', textErr.message)
+    }
     console.log('[validateEmail] Error body:', errorText)
     throw new Error('Falha ao consultar o servidor. Tente novamente.')
   }

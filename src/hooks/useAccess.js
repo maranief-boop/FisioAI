@@ -63,20 +63,25 @@ export function useAccess() {
   }, [])
 
   const handleValidate = useCallback(async (email) => {
+    console.log('[Validação] Iniciando handleValidate para:', email)
     setValidating(true)
     setValidationError('')
     try {
       const result = await validateEmail(email)
+      console.log('[Validação] validateEmail retornou:', result)
       if (result.active) {
         const sub = { email: result.email, expiresAt: result.expiresAt }
         saveSubscription(sub)
         setSubscriptionState(sub)
         setLockOpen(false)
+        console.log('[Validação] Assinatura ativa. Acesso liberado:', sub)
         return true
       }
       setValidationError('E-mail não encontrado ou assinatura inativa/expirada. Confira o e-mail usado na compra e tente novamente.')
+      console.log('[Validação] Assinatura inativa/encontrada:', result)
       return false
     } catch (err) {
+      console.error('[Validação] Erro na validação:', err)
       setValidationError(err.message || 'Falha ao validar o acesso. Tente novamente.')
       return false
     } finally {
