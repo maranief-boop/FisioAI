@@ -95,7 +95,7 @@ export default function OnboardingScreen({ onApiKeySet }) {
               </p>
               <div className="aspect-video rounded-xl overflow-hidden bg-black">
                 <iframe
-                  src={`https://www.youtube.com/shorts/${TUTORIAL_VIDEO_ID}`}
+                  src={`https://www.youtube.com/embed/${TUTORIAL_VIDEO_ID}`}
                   title="Tutorial: como gerar sua chave de API no Google AI Studio"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
