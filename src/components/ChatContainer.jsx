@@ -91,6 +91,9 @@ export default function ChatContainer({
         disabled={locked}
         placeholder={locked ? 'Assine para continuar enviando mensagens...' : undefined}
       />
+      <div className="mt-4 text-center text-sm text-surface-500">
+        Precisa de ajuda? <a href="https://chat.whatsapp.com/Gvq0JSaRGn6IBps8Jz4o37?s=cl&p=a&ilr=1" target="_blank" rel="noopener noreferrer" className="text-primary-400 underline underline-offset-2">Entre no nosso grupo</a>
+      </div>
     </div>
   )
 }

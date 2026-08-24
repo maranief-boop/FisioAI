@@ -115,6 +115,7 @@ export default function SettingsDrawer({ isOpen, onClose, onApiKeySet }) {
                 <li>Curi — Fisiologia Básica</li>
               </ul>
               <p className="pt-2">Versão 1.0.0</p>
+              <p className="text-xs text-surface-500 text-center">Precisa de ajuda? <a href="https://chat.whatsapp.com/Gvq0JSaRGn6IBps8Jz4o37?s=cl&p=a&ilr=1" target="_blank" rel="noopener noreferrer" className="text-primary-400 underline underline-offset-2">Entre no nosso grupo</a></p>
             </div>
           </div>
         </div>

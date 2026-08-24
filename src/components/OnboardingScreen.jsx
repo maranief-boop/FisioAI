@@ -95,7 +95,7 @@ export default function OnboardingScreen({ onApiKeySet }) {
               </p>
               <div className="aspect-video rounded-xl overflow-hidden bg-black">
                 <iframe
-                  src={`https://www.youtube.com/embed/${TUTORIAL_VIDEO_ID}`}
+                  src={`https://www.youtube.com/shorts/${TUTORIAL_VIDEO_ID}`}
                   title="Tutorial: como gerar sua chave de API no Google AI Studio"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
@@ -191,7 +191,7 @@ export default function OnboardingScreen({ onApiKeySet }) {
 
           {/* Footer */}
           <p className="text-xs text-surface-500 text-center pb-4">
-            Sua chave fica salva apenas no seu navegador. Nunca é enviada para nossos servidores.
+            Sua chave fica salva apenas no seu navegador. Nunca é enviada para nossos servidores. <a href="https://chat.whatsapp.com/Gvq0JSaRGn6IBps8Jz4o37?s=cl&p=a&ilr=1" target="_blank" rel="noopener noreferrer" className="text-primary-400 underline underline-offset-2">Precisa de ajuda? Entre no nosso grupo</a>
           </p>
         </div>
       </div>
